@@ -1,0 +1,9 @@
+/* Cover-only refinement: warm paper, natural wood and gentle morning light. */
+.cover{background-color:#f5f2e9;background-image:url('assets/cover-japanese.png');color:#343c35}
+.cover-title{color:#343c35}.cover-eyebrow{color:#66755f}.cover-sub{color:#5b6259}
+.cover .cc-list{color:#424b40}.cover .cc-section{border-color:#8b927736;background:linear-gradient(90deg,#f8f6efed,#f8f6efb0)}
+.cover .cc-section>span:first-child{color:#68745d}.cover .cc-section>span:last-child{color:#3f483b}
+.cover-start{background:#50604a;color:#fffdf6;border-radius:3px;box-shadow:0 3px 10px #53634817}.cover-start:hover{background:#3e503a}
+.slide.divider{background:#f4f1e9;color:#343c35}.divider .dv-title{color:#343c35}.divider .dv-num{color:#6a795f}.divider .dv-chip{color:#485343;border-color:#cdd1c2}
+@media(max-width:640px){.cover{background-image:linear-gradient(90deg,#f7f4ecd9,#f7f4ec73),url('assets/cover-japanese.png');background-position:65% center}}
+@media(max-height:500px){.cover{background-image:linear-gradient(90deg,#f7f4ec55,#f7f4ec33),url('assets/cover-japanese.png');background-position:center}}
