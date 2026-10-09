@@ -42,7 +42,7 @@ window.DECK=window.DECK||[];
   function analyse(h){
     mount(h,4,n=>{
       if(!n)return '';
-      if(n===1)return `<div class="decomposition"><small>Numerator</small>${line('3x+6xy=\\color{#2454a4}{3x}(1+2y)')}<small>Denominator</small>${line('6x=\\color{#2454a4}{3x}\\times2')}</div>`;
+      if(n===1)return `<div class="decomposition"><small>Numerator</small>${line('3x+6xy=\\color{#52664b}{3x}(1+2y)')}<small>Denominator</small>${line('6x=\\color{#52664b}{3x}\\times2')}</div>`;
       if(n===2||n===3)return `${fraction(product('3x','(1+2y)',n===3),product('3x','2',n===3),'3x times (1 + 2y), divided by 3x times 2')}<p class="teaching-note">${n===2?'The same factor multiplies the whole numerator and denominator.':`Divide both by ${M('3x')}, where ${M('x\\ne0')}.`}</p>`;
       return `${line('\\frac{1+2y}{2}','answer large')}<p class="teaching-note">Cancel the common factor, not a term.</p><p class="domain">Original denominator: ${M('x\\ne0')}.</p>`;
     });
@@ -213,5 +213,5 @@ const T=String.raw;
     else if(id==='R9')s.layout+=' studio-lab';
     else if(!id)s.layout+=' studio-concept';
   });
-  window.DECK.push({ch:3,title:'Algebraic Fractions',color:'#2454a4',sections:['00 Key Points',"01 Let's Check",'02 Example 1 and practice','03 Brackets and opposite expressions','04 Example 2 and practice','05 Example 3 and practice','06 Exercise 1–8','07 Optional challenge'],slides});
+  window.DECK.push({ch:3,title:'Algebraic Fractions',color:'#52664b',sections:['00 Key Points',"01 Let's Check",'02 Example 1 and practice','03 Brackets and opposite expressions','04 Example 2 and practice','05 Example 3 and practice','06 Exercise 1–8','07 Optional challenge'],slides});
 })();

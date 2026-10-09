@@ -1,0 +1,45 @@
+/* One classroom palette, shared with the light cover. Legacy colour variable names
+   remain aliases so the teaching engine and interaction behaviour stay intact. */
+:root{--paper:#faf8f2;--ink:#343c35;--muted:#62695c;--faint:#737b6c;--panel:#faf8f2;--line:#d9dccf;--rule:#d9dccf;--accent:#855c43;--blue:#52664b;--violet:#778367;--teal:#52664b;--rose:#855c43;--green:#52664b;--amber:#8b6d3b;--sage:#52664b;--sage-wash:#edf0e6;--wood-wash:#f2eee4;--shadow-sm:0 6px 18px #343c3510;--shadow:0 18px 50px #343c3515}
+body,.body,.topbar,.slide,.controlbar{background:var(--paper);color:var(--ink)}
+.topbar{border-color:var(--line)}.home-btn,.ghost-btn,.nav-btn,.progress-text,.step-count,.micro,.visual-caption,.vis-zoom{color:var(--muted)}
+.slide-title,.points li,.pilot-panel,.hero-math,.reveal-line{color:var(--ink)}
+.badge,.points li b{color:var(--sage)}
+.ghost-btn:hover,.ghost-btn[aria-pressed=true],.vis-zoom:hover{background:var(--sage-wash);color:var(--sage)}
+button:focus-visible,input:focus-visible{outline-color:#8b6d3b}
+.pbtn,.number-tab{color:var(--sage);border-color:#cbd1c1;background:transparent}
+.pbtn:hover,.number-tab:hover{background:var(--sage-wash);color:#3e503a}
+.pbtn.primary,.pbtn[aria-pressed=true],.choices .pbtn[aria-pressed=true]{background:var(--sage);border-color:var(--sage);color:#fffdf6}
+.choices .pbtn{color:var(--ink)}
+.number-tab[aria-pressed=true]{background:var(--sage);border-color:var(--sage);color:#fffdf6;box-shadow:0 3px 0 #ad9978}
+.number-tabs,.selected-working,.term-comparison>div+div,.optional-analysis{border-color:var(--line)}
+.question-kicker,.decomposition small,.term-comparison small{color:var(--muted)}
+.teaching-note,.domain,.choice-feedback,.optional-analysis p,.term-comparison p,.ictrl label,.relation-note,.explain,.feedback,.working{color:var(--muted)}
+.answer,.answer-math{color:var(--accent)}.decision,.ival,.relation-math,.explorer-result{color:var(--sage)}
+.source-note{color:#795b3b}
+.common{border-color:var(--sage);background:var(--sage-wash);color:var(--sage)}
+.factor-numerator{border-color:#68765d}.times{color:#7a826f}
+.cancelled{color:#707c63;background:#f0f1e9}.cancelled::after{background:var(--accent)}
+.studio-split .slide-visual,.studio-lab .slide-visual{border-color:var(--line)}
+.studio-ledger .slide-visual{background:var(--wood-wash)}
+.studio-ledger .calculation-stack{border-color:#a5af96}.studio-ledger .math-line:before{background:var(--sage)}.studio-ledger .answer:before{background:var(--accent)}
+.studio-banner .slide-info{border-color:var(--line)}.studio-banner .points{border-color:#9aa88b}
+.studio-concept .slide-info{border-color:#b39b77}
+.studio-lab .opposite-tool{background:var(--sage-wash)}
+.sign-controls .negative{background:#e6eadb;color:#465b3f;border-color:#718364}
+.sign-table,.sign-table>*{border-color:#d4d9c9}
+.ictrl input[type=range]{accent-color:var(--sage)}
+.progress-track{background:#e3e4d8}.progress-fill{background:#829071}
+.nav-btn:hover:not(:disabled){color:var(--sage);border-color:var(--sage)}
+.toc{background:#f5f3eb;border-color:var(--line)}.toc-chead{color:var(--sage)}
+.toc-item{color:var(--muted)}.toc-item .ti-sec{color:#6f7a64}
+.toc-chead:hover,.toc-item:hover,.toc-item.active{background:#e9edde;color:#405438}
+.toc-dot{background:var(--sage)}
+.dock,.zoom-bar{background:#faf8f2f5;border-color:var(--line);box-shadow:0 4px 18px #343c3517}
+.dbtn{color:var(--ink)}.dbtn:hover{background:var(--sage-wash);color:var(--sage)}
+.dbtn.active,#dkPen.active{background:var(--sage);color:#fffdf6}#dkLaser.active{background:var(--accent);color:#fffdf6}
+.derase.active{background:#8b6d3b;color:#fffdf6}
+.zoom-modal,.zoom-body{background:var(--paper)}.zoom-badge,.zoom-btn{color:var(--sage);border-color:var(--sage)}.zoom-btn{background:var(--paper)}.zoom-btn:hover{background:var(--sage);color:#fffdf6}.zoom-x{color:var(--accent);border-color:var(--accent)}.zoom-x:hover{background:var(--accent);color:#fffdf6}
+.laser-dot{background:radial-gradient(circle,#9b6837fa,#9b68378c 55%,#9b683700 72%);box-shadow:0 0 14px 5px #9b683766}
+.cover-start:hover{box-shadow:0 6px 16px #53634822}
+@media(max-width:1080px){.toc{background:#f5f3eb}}

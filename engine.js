@@ -357,7 +357,7 @@
   /* ================= 授課教具 ================= */
   const canvas = $('penCanvas'), penCtx = canvas.getContext('2d');
   const laserDot = $('laserDot');
-  let laserOn = false, penOn = false, drawing = false, erasing = false, penColor = '#e11d48', lastPt = null;
+  let laserOn = false, penOn = false, drawing = false, erasing = false, penColor = '#855c43', lastPt = null;
 
   // 雷射拖尾：獨立畫布，畫出會隨時間淡出的紅色軌跡（不影響Pen畫布）
   const laserCanvas = document.createElement('canvas');
@@ -375,7 +375,7 @@
     for (let i = 1; i < laserPts.length; i++) {
       const a = laserPts[i - 1], b = laserPts[i];
       const alpha = Math.max(0, 1 - (now - b.t) / LASER_LIFE);   // 越新越濃，隨時間淡出
-      lctx.strokeStyle = 'rgba(255,42,42,' + (0.6 * alpha).toFixed(3) + ')';
+      lctx.strokeStyle = 'rgba(155,104,55,' + (0.6 * alpha).toFixed(3) + ')';
       lctx.lineWidth = 3 + 5 * alpha;
       lctx.beginPath(); lctx.moveTo(a.x, a.y); lctx.lineTo(b.x, b.y); lctx.stroke();
     }

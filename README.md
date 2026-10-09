@@ -11,4 +11,6 @@ English-medium interactive mathematics lesson for the selected Lesson Worksheet 
 
 Live lesson: https://lv99slime.github.io/form2-algebraic-fractions/
 
-Release: `20261009afr8`. MathJax and web fonts require an internet connection.
+The full lesson shares a warm ivory, sage and muted clay palette with the cover.
+
+Release: `20261009afr9`. MathJax and web fonts require an internet connection.
