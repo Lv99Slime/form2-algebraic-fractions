@@ -23,17 +23,33 @@
   }
   toggle.addEventListener('click',()=>{enabled=!enabled;sync();try{sessionStorage.setItem('algebraic-fractions-motion',enabled?'on':'off');}catch(_){}});
   reduced.addEventListener('change',()=>{if(reduced.matches)enabled=false;sync();});
+  const sequenceSteps=new WeakMap();
+  let pageChanged=false;
   const observer=new MutationObserver(records=>{
     if(frame)cancelAnimationFrame(frame);
-    const newPage=records.some(r=>r.target===slide);
-    const changed=new Set(records.filter(r=>r.target instanceof Element).map(r=>r.target));
+    pageChanged=pageChanged||records.some(r=>r.target===slide);
     frame=requestAnimationFrame(()=>{
       frame=0;
-      if(newPage){play(slide.querySelector('.slide-info'),{opacity:0,transform:'translateY(8px)'},320);play(slide.querySelector('.slide-visual'),{opacity:0,transform:'translateY(12px)'},420);return;}
-      changed.forEach(el=>{
-        if(el.id==='rootSteps')play(el.lastElementChild,{opacity:0,transform:'translateX(-8px)',clipPath:'inset(0 100% 0 0)'},480);
-        else if(['relationship','sequence','feedback','working','result'].includes(el.id))play(el,{opacity:0,transform:'translateY(6px)'},320);
-      });
+      if(pageChanged){
+        pageChanged=false;
+        play(slide.querySelector('.slide-info'),{opacity:0,transform:'translateX(-14px)'},380);
+        play(slide.querySelector('.slide-visual'),{opacity:0,transform:'translateY(16px)'},460);
+      }
+      const sequence=slide.querySelector('#sequence');
+      if(sequence){
+        const step=Number(sequence.dataset.step||0),old=sequenceSteps.get(sequence);
+        sequenceSteps.set(sequence,step);
+        // MathJax DOM mutations do not replay settled steps. Only the new step enters.
+        if(step>0&&step!==old){
+          const rows=sequence.querySelectorAll('.calculation-stack .math-line');
+          if(rows.length)play(rows[rows.length-1],{opacity:0,transform:'translateX(-18px)'},460);
+          else{
+            play(sequence.querySelector('.factor-fraction,.decomposition,.term-comparison,.decision,.sign-table,.answer,.math-line'),{opacity:0,transform:'translateY(12px) scale(.985)'},480);
+          }
+        }
+      }
+      if(records.some(r=>r.target instanceof Element&&r.target.classList.contains('selected-source')))
+        play(slide.querySelector('.selected-source'),{opacity:0,transform:'translateX(-12px)'},300);
     });
   });
   observer.observe(slide,{childList:true,subtree:true});

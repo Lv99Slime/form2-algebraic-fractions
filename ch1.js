@@ -19,6 +19,7 @@ window.DECK=window.DECK||[];
       h.querySelector('#count').textContent=`${step} / ${max}`;
       h.querySelector('#prev').disabled=step===0;h.querySelector('#next').disabled=step===max;
       body.innerHTML=render(step,hint,choice);
+      body.dataset.step=String(step);
       if(options.hint){const b=h.querySelector('#hint');b.textContent=hint?'Hide analysis':'Analyze';b.setAttribute('aria-pressed',String(hint));}
       if(options.choice)for(const id of ['yes','no'])h.querySelector('#'+id).setAttribute('aria-pressed',String(choice===id));
       if(options.afterDraw)options.afterDraw(step,hint,draw);
@@ -171,11 +172,46 @@ const T=String.raw;
   ['C9','E2a-analysis','E2a','T2a'].forEach((id,i)=>{pilot[i].sourceId=id;pilot[i].sec=i===0?'01':'04';pilot[i].secName='Chapter 3 · LN p. '+(i===0?3:4)+' · Worksheet 3.1A';});
   const find=id=>itemSlide(items.find(q=>q.id===id));
   const slides=[{sec:'00',secName:'Chapter 3 · LN p. 3 · Worksheet 3.1A',title:'Key Points',points:['An algebraic fraction can be reduced to its simplest form by cancelling out the common factor(s) of its numerator and denominator.'],layout:'question key-points',visual:keyPoints,caption:''}];
-  for(let i=1;i<=12;i++)slides.push(i===9?pilot[0]:find('C'+i));
+  // One source question at a time. Switching number starts a fresh, unrevealed task.
+  function checkGroup(first,last){
+    const judge=first===7;
+    return {sec:'01',secName:'Chapter 3 · LN p. 3 · Worksheet 3.1A',title:"Let's Check",tocTitle:"Let's Check "+first+'–'+last,sourceId:'C'+first+'-'+last,questionIds:Array.from({length:6},(_,i)=>'C'+(first+i)),layout:'question check-selector',points:[judge?'Determine whether the algebraic fractions are in its simplest form.':'Fill in the blanks. (1 – 6)'],caption:'',visual:h=>{
+      h.innerHTML='<div class="pilot-panel check-group"><nav class="number-tabs" aria-label="Question number">'+Array.from({length:6},(_,i)=>'<button type="button" class="number-tab" data-question="'+(first+i)+'" aria-label="Question '+(first+i)+'">'+(first+i)+'</button>').join('')+'</nav><div class="check-workspace"><div class="selected-source" aria-live="polite"></div><div class="selected-working"></div></div></div>';
+      const question=h.querySelector('.selected-source'),working=h.querySelector('.selected-working');
+      const select=number=>{
+        if(window.MathJax&&MathJax.typesetClear)MathJax.typesetClear([question,working]);
+        const q=items.find(item=>item.id==='C'+number);
+        question.innerHTML='<span class="question-kicker">Question '+number+'</span>'+line(number===9?T`\frac{x+y}{3x}`:q.q,'selected-equation');
+        h.querySelectorAll('.number-tab').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.question)===number)));
+        if(number===9)check(working);else worked(working,q);
+        if(window.MJ)window.MJ(h);
+      };
+      h.querySelectorAll('.number-tab').forEach(b=>b.onclick=()=>select(Number(b.dataset.question)));
+      select(first);
+    }};
+  }
+  slides.push(checkGroup(1,6),checkGroup(7,12));
   slides.push(...['E1a','E1b','T11a','T11b','T12a','T12b','T12c','T12d'].map(find),pilot[1],pilot[2],find('E2b'),pilot[3],find('T2b'));
   slides.push(...['E3a','E3b','E3c','T3a','T3b','T3c',...Array.from({length:8},(_,i)=>'R'+(i+1))].map(find));
   slides.push({sec:'07',secName:'Chapter 3 · LN p. 4 · Optional challenge',title:'Exercise *9',tocTitle:'Optional · Exercise *9',sourceId:'R9',points:[M(T`abc\ne0`)+'<span class="challenge-intro">If '+M(T`abc\ne0`)+', then</span>', '<span class="challenge-stem">'+M(T`\begin{aligned}&\frac{|a|}{a}+\frac{|b|}{b}+\frac{|c|}{c}\\&-\frac{|ab|}{ab}-\frac{|bc|}{bc}-\frac{|ca|}{ca}+\frac{|abc|}{abc}=\underline{\qquad}\end{aligned}`)+'</span>'],layout:'question optional-challenge',visual:challenge,caption:''});
   // One original condition, kept with the full expression above the exploration.
   slides[slides.length-1].points[0]='If '+M(T`abc\ne0`)+', then';
+  // Compositions follow teaching purpose rather than alternating arbitrarily.
+  slides.forEach(s=>{
+    const id=s.sourceId||'';
+    if(id.startsWith('E1'))s.layout+=' studio-split';
+    else if(id.startsWith('T11'))s.layout+=' studio-banner';
+    else if(id==='T12c')s.layout+=' studio-lab';
+    else if(id.startsWith('T12'))s.layout+=id==='T12d'?' studio-banner':' studio-split';
+    else if(id==='E2a-analysis')s.layout+=' studio-split';
+    else if(id==='E2a'||id==='E2b')s.layout+=' studio-ledger';
+    else if(id==='T2a')s.layout+=' studio-banner';
+    else if(id==='T2b')s.layout+=' studio-ledger';
+    else if(id.startsWith('E3'))s.layout+=' studio-ledger';
+    else if(id.startsWith('T3'))s.layout+=' studio-banner';
+    else if(/^R[1-8]$/.test(id))s.layout+=' studio-split';
+    else if(id==='R9')s.layout+=' studio-lab';
+    else if(!id)s.layout+=' studio-concept';
+  });
   window.DECK.push({ch:3,title:'Algebraic Fractions',color:'#2454a4',sections:['00 Key Points',"01 Let's Check",'02 Example 1 and practice','03 Brackets and opposite expressions','04 Example 2 and practice','05 Example 3 and practice','06 Exercise 1–8','07 Optional challenge'],slides});
 })();

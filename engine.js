@@ -187,7 +187,7 @@
       card.style.setProperty('--ct', c.color);
       card.innerHTML = `<div class="cc-num">Chapter ${c.ch}</div>
         <div class="cc-title">${c.title}</div>
-        <div class="cc-list">${c.sections.join('　')}</div>`;
+        <div class="cc-list">${c.sections.map(section => `<div class="cc-section"><span>${section.slice(0,2)}</span><span>${section.slice(3)}</span></div>`).join('')}</div>`;
       host.appendChild(card);
     });
   })();
